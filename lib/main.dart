@@ -1,66 +1,111 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(ShoppingListApp());
-}
+void main() => runApp(PhotoGalleryApp());
 
-class ShoppingListApp extends StatelessWidget {
+class PhotoGalleryApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Shopping List',
+      title: 'Photo Gallery',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ShoppingListScreen(),
+      home: PhotoGalleryHomePage(),
     );
   }
 }
 
-class ShoppingListScreen extends StatelessWidget {
-  const ShoppingListScreen({super.key});
-
+class PhotoGalleryHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: Text('My Shopping List'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.shopping_cart),
-            onPressed: () {
-              _showSnackBar(context, 'Cart is empty');
-            },
-          ),
-        ],
+        title: Text('Photo Gallery'),
       ),
-      body: ListView(
-        padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
-        children: [
-          _buildShoppingItem(Icons.shopping_basket, 'Apples'),
-          _buildShoppingItem(Icons.shopping_basket, 'Bananas'),
-          _buildShoppingItem(Icons.shopping_basket, 'Bread'),
-          _buildShoppingItem(Icons.shopping_basket, 'Milk'),
-          _buildShoppingItem(Icons.shopping_basket, 'Eggs'),
-
-        ],
-      ),
-    );
-  }
-
-  Widget _buildShoppingItem(IconData icon, String name) {
-    return ListTile(
-      leading: Icon(icon),
-      title: Text(name),
-    );
-  }
-
-  void _showSnackBar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'Welcome to our Photo Gallery!',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Search Photos...',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ),
+            GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                childAspectRatio: 1.0,
+              ),
+              itemCount: 6,
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, int index) {
+                return GestureDetector(
+                  onTap: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Photo ${index + 1} Clicked'),
+                      ),
+                    );
+                  },
+                  child: Card(
+                    elevation: 4,
+                    child: Column(
+                      children: [
+                        Image.network('https://images.pexels.com/photos/2361952/pexels-photo-2361952.jpeg?auto=compress&cs=tinysrgb&w=1200'),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text('Photo  ${index + 1}'),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: CircleAvatar(
+                backgroundImage: NetworkImage('https://images.pexels.com/photos/2361952/pexels-photo-2361952.jpeg?auto=compress&cs=tinysrgb&w=1200'),
+              ),
+              title: Text('Photo 1'),
+              subtitle: Text('Nice Picture'),
+            ),
+            ListTile(
+              leading: CircleAvatar(
+                backgroundImage: NetworkImage('https://images.pexels.com/photos/2173872/pexels-photo-2173872.jpeg?auto=compress&cs=tinysrgb&w=1200'),
+              ),
+              title: Text('Photo 2'),
+              subtitle: Text('Nice Picture'),
+            ),
+            ListTile(
+              leading: CircleAvatar(
+                backgroundImage: NetworkImage('https://images.pexels.com/photos/3777622/pexels-photo-3777622.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'),
+              ),
+              title: Text('Photo 3'),
+              subtitle: Text('Excellent Picture'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Photos Uploaded Successfully!'),
+                  ),
+                );
+              },
+              child: Icon(Icons.upload),
+            ),
+          ],
+        ),
       ),
     );
   }
