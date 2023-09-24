@@ -1,108 +1,103 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(PhotoGalleryApp());
+main() {
+  runApp(
+    const MyApp(),
+  );
+}
 
-class PhotoGalleryApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Photo Gallery',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: PhotoGalleryHomePage(),
+    return const MaterialApp(
+      home: CounterScreen(),
     );
   }
 }
 
-class PhotoGalleryHomePage extends StatelessWidget {
+class CounterScreen extends StatefulWidget {
+  const CounterScreen({Key? key}) : super(key: key);
+
+  @override
+  State<CounterScreen> createState() => _CounterScreenState();
+}
+
+class _CounterScreenState extends State<CounterScreen> {
+  int counter = 0;
+  void incrementCounter() {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Photo Gallery'),
+        title: const Text('Counter App'),
       ),
-      body: SingleChildScrollView(
+      body: Center(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                'Welcome to our Photo Gallery!',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search Photos...',
-                  border: OutlineInputBorder(),
+            Column(
+              children: [
+                const Text(
+                  'Count:',
+                  style: TextStyle(fontSize: 20, color: Colors.blueAccent),
                 ),
-              ),
+                Text(
+                  counter.toString(),
+                  style: const TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
-            GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                childAspectRatio: 1.0,
-              ),
-              itemCount: 6,
-              shrinkWrap: true,
-              itemBuilder: (BuildContext context, int index) {
-                return GestureDetector(
-                  onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Photo ${index + 1} Clicked'),
-                      ),
-                    );
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    counter++;
+                    if (counter >= 5) {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            //title: const Text('Counter Alert'),
+                            content: Text('Button pressed $counter times'),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('Close'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    }
+                    setState(() {});
                   },
-                  child: Card(
-                    elevation: 4,
-                    child: Column(
-                      children: [
-                        Image.network('https://images.pexels.com/photos/2361952/pexels-photo-2361952.jpeg?auto=compress&cs=tinysrgb&w=1200'),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Text('Photo  ${index + 1}'),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage('https://images.pexels.com/photos/2361952/pexels-photo-2361952.jpeg?auto=compress&cs=tinysrgb&w=1200'),
-              ),
-              title: Text('Photo 1'),
-              subtitle: Text('Nice Picture'),
-            ),
-            ListTile(
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage('https://images.pexels.com/photos/2173872/pexels-photo-2173872.jpeg?auto=compress&cs=tinysrgb&w=1200'),
-              ),
-              title: Text('Photo 2'),
-              subtitle: Text('Nice Picture'),
-            ),
-            ListTile(
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage('https://images.pexels.com/photos/3777622/pexels-photo-3777622.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'),
-              ),
-              title: Text('Photo 3'),
-              subtitle: Text('Excellent Picture'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('Photos Uploaded Successfully!'),
-                  ),
-                );
-              },
-              child: Icon(Icons.upload),
+                  child: const Icon(Icons.add),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (counter == 0) {
+                      return;
+                    } else {
+                      counter--;
+                    }
+
+                    setState(() {});
+                  },
+                  child: const Icon(Icons.remove),
+                ),
+              ],
             ),
           ],
         ),
