@@ -1,16 +1,5 @@
-# atidya_flutter
+![image](https://github.com/Skaditya007/Flutter_RESTAPI_Firebase/assets/95046114/c4ad51f8-0247-4cff-b806-0308862937d2)
 
-A new Flutter project.
+![Screenshot_20230926_202140](https://github.com/Skaditya007/Flutter_RESTAPI_Firebase/assets/95046114/34590775-eca2-49ba-bbdd-8bef92938387)
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Screenshot_20230926_202214](https://github.com/Skaditya007/Flutter_RESTAPI_Firebase/assets/95046114/fe88aaf2-731d-4171-b72d-3b0420d96548)
