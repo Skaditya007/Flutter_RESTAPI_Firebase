@@ -8,7 +8,24 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool pressed = false;
+  List<Color> buttonColors = List.filled(6, Colors.grey);
+  List<String> size = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
+  String snackbarMessage = '';
+
+  void handleButtonPress(int index) {
+    setState(() {
+      buttonColors = List.filled(6, Colors.grey);
+      buttonColors[index] = Colors.amber;
+      snackbarMessage = 'Size: ${size[index]}';
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(snackbarMessage),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,76 +34,25 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
       ),
       body: Center(
-        child: Row(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  pressed = !pressed;
-                });
-              },
-              child: Container(
-                margin: const EdgeInsets.all(8),
-                height: 40,
-                width: 70,
-                decoration: pressed
-                    ? const BoxDecoration(color: Colors.amber)
-                    : BoxDecoration(color: Colors.grey.shade500),
-                alignment: Alignment.center,
-                child: Text('S', style: TextStyle(color: Colors.white),),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  pressed = !pressed;
-                });
-              },
-              child: Container(
-                margin: const EdgeInsets.all(8),
-                height: 40,
-                width: 70,
-                decoration: pressed
-                    ? const BoxDecoration(color: Colors.amber)
-                    : BoxDecoration(color: Colors.grey.shade500),
-                alignment: Alignment.center,
-                child: Text('M', style: TextStyle(color: Colors.white),),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  pressed = !pressed;
-                });
-              },
-              child: Container(
-                margin: const EdgeInsets.all(8),
-                height: 40,
-                width: 70,
-                decoration: pressed
-                    ? const BoxDecoration(color: Colors.amber)
-                    : BoxDecoration(color: Colors.grey.shade300),
-                alignment: Alignment.center,
-                child: Text('L'),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  pressed = !pressed;
-                });
-              },
-              child: Container(
-                margin: const EdgeInsets.all(8),
-                height: 40,
-                width: 70,
-                decoration: pressed
-                    ? const BoxDecoration(color: Colors.amber)
-                    : BoxDecoration(color: Colors.grey.shade300),
-                alignment: Alignment.center,
-                child: Text('XL'),
-              ),
-            ),
+            Wrap(
+              alignment: WrapAlignment.start,
+              spacing: 30,
+              children: [
+                for (int i = 0; i < 6; i++)
+                  ElevatedButton(
+                    onPressed: () => handleButtonPress(i),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                        buttonColors[i],
+                      ),
+                    ),
+                    child: Text(size[i]),
+                  ),
+              ],
+            )
           ],
         ),
       ),
