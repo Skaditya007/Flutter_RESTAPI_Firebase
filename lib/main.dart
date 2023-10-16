@@ -6,78 +6,171 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ItemListScreen(),
+      home: TextList(),
     );
   }
 }
 
-class ItemListScreen extends StatefulWidget {
+class TextList extends StatefulWidget {
   @override
-  _ItemListScreenState createState() => _ItemListScreenState();
+  _TextListState createState() => _TextListState();
 }
 
-class _ItemListScreenState extends State<ItemListScreen> {
-  List<ItemModel> items = List.generate(5, (index) => ItemModel(index, false));
-
-  int selectedCount = 0;
-
-  void updateSelectedCount() {
-    int count = items.where((item) => item.isSelected).length;
-    setState(() {
-      selectedCount = count;
-    });
-  }
+class _TextListState extends State<TextList> {
+  List<Item> items = [];
+  final titleController = TextEditingController();
+  final descriptionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Selectable List'),
-      ),
-      body: ListView.builder(
-        itemCount: items.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text('Item ${items[index].id}'),
-            tileColor: items[index].isSelected ? Colors.blue : null,
-            onTap: () {
-              setState(() {
-                items[index].isSelected = !items[index].isSelected;
-                updateSelectedCount();
-              });
+      body: Column(
+        children: [
+          Row(
+            children: [
+              Spacer(),
+              IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () {
+                  // Implement search functionality
+                },
+              ),
+            ],
+          ),
+          TextField(
+            controller: titleController,
+            decoration: InputDecoration(
+              labelText: 'Title',
+              hintText: 'Enter the title',
+            ),
+          ),
+          TextField(
+            controller: descriptionController,
+            decoration: InputDecoration(
+              labelText: 'Description',
+              hintText: 'Enter the description',
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              addItem();
             },
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: Text('Selected Items'),
-                content: Text('Number of selected items: $selectedCount'),
-                actions: <Widget>[
-                  TextButton(
-                    child: Text('OK'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
+            child: Text('Add'),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: items.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(items[index].title),
+                  subtitle: Text(items[index].description),
+                  leading: Container(
+                    width: 30,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.red,
+                    ),
                   ),
-                ],
-              );
-            },
-          );
-        },
-        child: Icon(Icons.check),
+                  onLongPress: () {
+                    showOptionsDialog(index);
+                  },
+                );
+              },
+            ),
+          ),
+        ],
       ),
+    );
+  }
+
+  void addItem() {
+    String title = titleController.text;
+    String description = descriptionController.text;
+
+    if (title.isNotEmpty && description.isNotEmpty) {
+      setState(() {
+        items.add(Item(title, description));
+        titleController.clear();
+        descriptionController.clear();
+      });
+    }
+  }
+
+  void showOptionsDialog(int index) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Alert!!'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Edit'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                showEditBottomSheet(index);
+              },
+            ),
+            TextButton(
+              child: Text('Delete'),
+              onPressed: () {
+                setState(() {
+                  items.removeAt(index);
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void showEditBottomSheet(int index) {
+    String editedTitle = items[index].title;
+    String editedDescription = items[index].description;
+
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            children: [
+              Text('Edit Item'),
+              TextField(
+                controller: TextEditingController(text: editedTitle),
+                onChanged: (value) {
+                  editedTitle = value;
+                },
+              ),
+              TextField(
+                controller: TextEditingController(text: editedDescription),
+                onChanged: (value) {
+                  editedDescription = value;
+                },
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    items[index].title = editedTitle;
+                    items[index].description = editedDescription;
+                  });
+                  Navigator.of(context).pop();
+                },
+                child: Text('Save'),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
 
-class ItemModel {
-  final int id;
-  bool isSelected;
+class Item {
+  String title;
+  String description;
 
-  ItemModel(this.id, this.isSelected);
+  Item(this.title, this.description);
 }
