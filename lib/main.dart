@@ -1,176 +1,169 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
-class MyApp extends StatelessWidget {
+class  MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: TextList(),
+      debugShowCheckedModeBanner: true,
+      home: HomeScreen(),
+      title: 'Adityas App',
     );
   }
 }
 
-class TextList extends StatefulWidget {
-  @override
-  _TextListState createState() => _TextListState();
-}
-
-class _TextListState extends State<TextList> {
-  List<Item> items = [];
-  final titleController = TextEditingController();
-  final descriptionController = TextEditingController();
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Row(
-            children: [
-              Spacer(),
-              IconButton(
-                icon: Icon(Icons.search),
-                onPressed: () {
-                  // Implement search functionality
-                },
-              ),
-            ],
-          ),
-          TextField(
-            controller: titleController,
-            decoration: InputDecoration(
-              labelText: 'Title',
-              hintText: 'Enter the title',
-            ),
-          ),
-          TextField(
-            controller: descriptionController,
-            decoration: InputDecoration(
-              labelText: 'Description',
-              hintText: 'Enter the description',
-            ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              addItem();
-            },
-            child: Text('Add'),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: items.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(items[index].title),
-                  subtitle: Text(items[index].description),
-                  leading: Container(
-                    width: 30,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.red,
-                    ),
-                  ),
-                  onLongPress: () {
-                    showOptionsDialog(index);
-                  },
-                );
-              },
-            ),
-          ),
-        ],
+      appBar: AppBar(
+        title: Text('Home'),
       ),
+      body:
+        Center(
+          child:
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+
+                Container(
+                  width:100,
+                  height:100,
+                  alignment: Alignment.center,
+                  margin:EdgeInsets.only(right:20),
+                  padding:EdgeInsets.only(bottom:20),
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    // shape:
+                    border: Border.all(color: Colors.black,width: 10),
+                    borderRadius: BorderRadius.circular(16),
+
+                  ),
+
+                  child: Text('HaHa'),
+                ),
+                Container(
+                  width: 200,
+                  height: 100,
+                  child: Text('YOYO'),
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.all(16),
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.amber,
+                    // shape:
+                    border: Border.all(color: Colors.redAccent,width: 10),
+                    borderRadius: BorderRadius.only(topLeft:Radius.circular(10),topRight:Radius.circular(10)),
+
+                  ),
+                ),
+
+                ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.deepPurple,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                  textStyle: TextStyle(fontSize: 24,
+                  fontWeight: FontWeight.w600),
+                ),
+
+                  onPressed: () { print('Sent!'); },
+                onLongPress: (){print('Deleted!');},
+                  child: Text('Send',style:TextStyle(
+                    color: Colors.black87,
+                  ),
+                  ),
+                ),
+                TextButton( style: TextButton.styleFrom(
+                  foregroundColor: Colors.black45,
+                ),
+                  onPressed: (){print('Resent!');},
+                  onLongPress: (){print('Error!');},
+                    child: const Text('Resend',style: TextStyle(fontStyle: FontStyle.italic,fontSize: 26,fontWeight: FontWeight.w600 ,color: Colors.amberAccent)
+                    ),
+                ),
+
+                IconButton(
+                  onPressed: (){print('PRESSSED!');}, icon: Icon(Icons.add),
+                ),
+
+                OutlinedButton(onPressed: (){}, child: Text('Outlined'),
+                ),
+
+                Container(
+                  // margin: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(10),
+                  child: TextField(
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                      decoration: InputDecoration(
+                        fillColor: Colors.purple,
+                        filled: true,
+                        hintText: 'Enter your Email.',
+                        hintStyle: TextStyle(
+                          color:Colors.white70
+                        ),
+                        suffixIcon: Icon(Icons.email_outlined),
+                        suffixIconColor: Colors.white,
+                        label : Text('Email Address'),
+                        labelStyle: TextStyle(
+                          color: Colors.white
+                        ),
+                         border: OutlineInputBorder(),
+                         enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.redAccent),
+                        ),
+
+                        disabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.green),
+                        ),
+
+                      ),
+                  ),
+                ),
+
+                SizedBox(height: 10,
+                    width: 10,
+                ),
+
+                TextField(
+                  obscureText: true,
+                  obscuringCharacter: '*',
+                  style: TextStyle(
+                    color: Colors.amber,
+                  ),
+                    decoration: InputDecoration(
+                      fillColor: Colors.purple,
+                      filled: true,
+                      hintText: 'Password.',
+                      hintStyle: TextStyle(
+                        color:Colors.white70
+                      ),
+                      suffixIcon: Icon(Icons.password),
+                      suffixIconColor: Colors.amber,
+                      label : Text('Enter Password'),
+                      labelStyle: TextStyle(
+                          color: Colors.white
+                      ),
+                    ),
+                ),
+
+
+
+              ],
+
+            )
+        )
     );
   }
-
-  void addItem() {
-    String title = titleController.text;
-    String description = descriptionController.text;
-
-    if (title.isNotEmpty && description.isNotEmpty) {
-      setState(() {
-        items.add(Item(title, description));
-        titleController.clear();
-        descriptionController.clear();
-      });
-    }
-  }
-
-  void showOptionsDialog(int index) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Alert!!'),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Edit'),
-              onPressed: () {
-                Navigator.of(context).pop();
-                showEditBottomSheet(index);
-              },
-            ),
-            TextButton(
-              child: Text('Delete'),
-              onPressed: () {
-                setState(() {
-                  items.removeAt(index);
-                });
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void showEditBottomSheet(int index) {
-    String editedTitle = items[index].title;
-    String editedDescription = items[index].description;
-
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          padding: EdgeInsets.all(16),
-          child: Column(
-            children: [
-              Text('Edit Item'),
-              TextField(
-                controller: TextEditingController(text: editedTitle),
-                onChanged: (value) {
-                  editedTitle = value;
-                },
-              ),
-              TextField(
-                controller: TextEditingController(text: editedDescription),
-                onChanged: (value) {
-                  editedDescription = value;
-                },
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    items[index].title = editedTitle;
-                    items[index].description = editedDescription;
-                  });
-                  Navigator.of(context).pop();
-                },
-                child: Text('Save'),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-}
-
-class Item {
-  String title;
-  String description;
-
-  Item(this.title, this.description);
 }
