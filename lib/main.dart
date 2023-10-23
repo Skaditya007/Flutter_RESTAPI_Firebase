@@ -24,33 +24,119 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text('Home'),
+          centerTitle: true,
         ),
         body:
-        Center(
-            child:
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: (){print('Tapped on Hello World!');},
-                  onLongPress: (){print('Long Pressed on Hello World!');},
-                  onDoubleTap: (){print('Double Tapped on Hello World!');},
-                 child: Text('Hello World'),
-                ),
+       Scrollbar(
+         thickness: 15,
+         radius: Radius.circular(10),
+         child: ListView(
+           scrollDirection: Axis.vertical,
+           children:[
+          ListTile(
+            iconColor: Colors.pink,
+            title: Text('Username'),
+            titleTextStyle: TextStyle(color: Colors.pink),
+            subtitle: Text('user@gmail.com'),
+            leading: Icon(Icons.emergency),
+            trailing: Icon(Icons.menu),
+            onTap: (){
+              print('list Tile pressed');
+            },
+          ),
 
-                InkWell(
-                  onTap: (){print('Tapped on InkWell!');},
-                  onLongPress: (){print('Long Pressed on InkWell!');},
-                  onDoubleTap: (){print('Double Tapped on InkWell!');},
-                 child: Text('InkWell'),
-                ),
+             Divider(
+               indent: 30,
+               height: 24,
+               thickness: 2,
+               color: Colors.amberAccent,
+               endIndent: 30
+               ,
+             ),
+
+             ListTile(
+               iconColor: Colors.pink,
+               title: Text('Username'),
+               subtitle: Text('user@gmail.com'),
+               leading: Icon(Icons.emergency),
+               trailing: Icon(Icons.menu),
+               onTap: (){
+                 print('list Tile pressed');
+               },
+             ),
+
+             Divider(
+               indent: 30,
+               height: 24,
+               thickness: 2,
+               color: Colors.amberAccent,
+               endIndent: 30
+               ,
+             ),
 
 
+             ListTile(
+               iconColor: Colors.pink,
+               title: Text('Username'),
+               subtitle: Text('user@gmail.com'),
+               leading: Icon(Icons.emergency),
+               trailing: Column(
+                 children: [
+                   Icon(Icons.arrow_right_alt),
+                   Icon(Icons.arrow_right_alt),
+                 ],
+               ),
+               onTap: (){
+                 print('list Tile pressed');
+               },
+             ),
 
-              ],
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
+             Text('dhjsfhdf'),
 
-            )
-        )
+      ]
+         ),
+       ),
     );
   }
 }
