@@ -16,8 +16,24 @@ class  MyApp extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  List<String>students=
+  [
+    'Aditya',
+    'Abir',
+    'Shahad',
+    'Rahat',
+    'Sunny',
+    'Naif',
+    'Muhaimmin',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -61,26 +77,40 @@ class HomeScreen extends StatelessWidget {
            // )
 
     ///ListView.Seperated:
-    child: ListView.separated(itemCount:100,
-    separatorBuilder:(context,index){
-      return Column(
-      children: [
-        Text(index.toString()),
-      ],
-      );
-    },
+    // child: ListView.separated(itemCount:100,
+    // separatorBuilder:(context,index){
+    //   return Column(
+    //   children: [
+    //     Text(index.toString()),
+    //   ],
+    //   );
+    // },
+    //
+    // itemBuilder: (BuildContext context, int index) {
+    // return Column(
+    // children: [
+    //
+    //   Divider(),
+    //
+    // ],
+    // );
+    //
+    // } ,
+    // ),
 
-    itemBuilder: (BuildContext context, int index) {
-    return Column(
-    children: [
+     child:ListView.separated(
+         itemCount: students.length,
 
-      Divider(),
+         itemBuilder: (context,index){
+           return ListTile(
+             title: Text(students[index]),
+           );
+         },
 
-    ],
-    );
-
-    } ,
-    ),
+         separatorBuilder:(context,index){
+       return Divider();
+       },
+     )
 
 
        )
