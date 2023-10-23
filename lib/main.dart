@@ -1,38 +1,56 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class  MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home:ScreenOrientation(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: true,
+      home: HomeScreen(),
+      title: 'Adityas App',
     );
   }
 }
-class ScreenOrientation extends StatelessWidget {
-  const ScreenOrientation({super.key});
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-        title: const Text('Profile'),
-      ),
-      body: OrientationBuilder(
-        builder: (context, orientation) {
-          return orientation == Orientation.portrait
-              ? const PortraitScreen()
-              : const LandscapeScreen();
-        },
-      ),
+        appBar: AppBar(
+          title: Text('Home'),
+        ),
+        body:
+        Center(
+            child:
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: (){print('Tapped on Hello World!');},
+                  onLongPress: (){print('Long Pressed on Hello World!');},
+                  onDoubleTap: (){print('Double Tapped on Hello World!');},
+                 child: Text('Hello World'),
+                ),
+
+                InkWell(
+                  onTap: (){print('Tapped on InkWell!');},
+                  onLongPress: (){print('Long Pressed on InkWell!');},
+                  onDoubleTap: (){print('Double Tapped on InkWell!');},
+                 child: Text('InkWell'),
+                ),
+
+
+
+              ],
+
+            )
+        )
     );
   }
 }
