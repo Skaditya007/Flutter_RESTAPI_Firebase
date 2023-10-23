@@ -32,22 +32,58 @@ class HomeScreen extends StatelessWidget {
        Scrollbar(
          thickness: 15,
          radius: Radius.circular(10),
-         child: GridView(
-           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-           children: [
-             Icon(Icons.abc_outlined),
-             Icon(Icons.abc_outlined),
-             Icon(Icons.abc_outlined),
-             Icon(Icons.abc_outlined),
-             Icon(Icons.abc_outlined),
-             Icon(Icons.abc_outlined),
 
-           ],
+    ///GridView Builder:
+    //      child: GridView.builder(
+    //        itemCount: 30,
+    //        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3), itemBuilder: (BuildContext context, int index) {
+    // return Column(children: [
+    // Text(index.toString()),
+    // Icon(Icons.adb_rounded),
+    //
+    // ]
+    // );
+    //
+    // }
+    // ),
+    //    )
 
-         )
+
+           ///ListView Builder:
+           // child: ListView.builder(
+           // itemCount: 20,
+           // itemBuilder: (context,index){
+           // return ListTile(
+           // title: Text('Item Number '),
+           // subtitle: Text('$index'),
+           // );
+           // }
+           // )
+
+    ///ListView.Seperated:
+    child: ListView.separated(itemCount:100,
+    separatorBuilder:(context,index){
+      return Column(
+      children: [
+        Text(index.toString()),
+      ],
+      );
+    },
+
+    itemBuilder: (BuildContext context, int index) {
+    return Column(
+    children: [
+
+      Divider(),
+
+    ],
+    );
+
+    } ,
+    ),
 
 
-       ),
+       )
     );
   }
 }
