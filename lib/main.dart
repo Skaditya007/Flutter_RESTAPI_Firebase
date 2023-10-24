@@ -16,7 +16,7 @@ class  MyApp extends StatelessWidget {
   }
 }
 
-///Route:HomeScreen
+///Route:HomeScree
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
