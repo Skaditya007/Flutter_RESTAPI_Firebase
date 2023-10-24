@@ -16,7 +16,7 @@ class  MyApp extends StatelessWidget {
   }
 }
 
-///Route
+///Route:HomeScreen
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -71,7 +71,7 @@ class HomeScreen extends StatelessWidget {
 }
 
 
-///Route
+///Route:SettingsScreen
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
@@ -112,7 +112,7 @@ class SettingsScreen extends StatelessWidget {
   }
 }
 
-///Route
+///Route:CartsScreen(Orders)
 class CartsScreen extends StatelessWidget {
   const CartsScreen({super.key});
 
