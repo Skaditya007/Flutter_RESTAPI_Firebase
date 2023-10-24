@@ -16,104 +16,151 @@ class  MyApp extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatefulWidget {
+///Route
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  List<String>students=
-  [
-    'Aditya',
-    'Abir',
-    'Shahad',
-    'Rahat',
-    'Sunny',
-    'Naif',
-    'Muhaimmin',
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text('Home'),
+          leading : IconButton(
+            onPressed: (){
+            Navigator.push(context,
+              MaterialPageRoute(
+                builder: (context)=> CartsScreen(),
+              ),
+            );
+          },
+            icon: Icon(Icons.shopping_cart),
+          ),
           backgroundColor: Colors.pink,
           foregroundColor: Colors.amberAccent,
           centerTitle: true,
         ),
         body:
-       Scrollbar(
-         thickness: 15,
-         radius: Radius.circular(10),
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Home',
+                style: TextStyle(color:  Colors.pink,fontSize: 25,fontWeight: FontWeight.bold),
+              ),
 
-    ///GridView Builder:
-    //      child: GridView.builder(
-    //        itemCount: 30,
-    //        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3), itemBuilder: (BuildContext context, int index) {
-    // return Column(children: [
-    // Text(index.toString()),
-    // Icon(Icons.adb_rounded),
-    //
-    // ]
-    // );
-    //
-    // }
-    // ),
-    //    )
-
-
-           ///ListView Builder:
-           // child: ListView.builder(
-           // itemCount: 20,
-           // itemBuilder: (context,index){
-           // return ListTile(
-           // title: Text('Item Number '),
-           // subtitle: Text('$index'),
-           // );
-           // }
-           // )
-
-    ///ListView.Seperated:
-    // child: ListView.separated(itemCount:100,
-    // separatorBuilder:(context,index){
-    //   return Column(
-    //   children: [
-    //     Text(index.toString()),
-    //   ],
-    //   );
-    // },
-    //
-    // itemBuilder: (BuildContext context, int index) {
-    // return Column(
-    // children: [
-    //
-    //   Divider(),
-    //
-    // ],
-    // );
-    //
-    // } ,
-    // ),
-
-     child:ListView.separated(
-         itemCount: students.length,
-
-         itemBuilder: (context,index){
-           return ListTile(
-             title: Text(students[index]),
-           );
-         },
-
-         separatorBuilder:(context,index){
-       return Divider();
-       },
-     )
+              ElevatedButton(onPressed:(){
+                ///Navigation - Route home--> Route Settings
+                ///Navigator:
+                ///Navigator types:
+                /// Navigator- push,pop(Back),replace,replaceAll,removeUntil
+                ///Navigator.typeOfNavigation(CurrentLocation,Destination);
+                Navigator.push(context,
+                  MaterialPageRoute(
+                    builder: (context)=> SettingsScreen(),
+                ),
+                );
+              } ,
+                child: Text('Go to Settings'),),
+          ]
+          ),
+        ),
 
 
-       )
+    );
+  }
+}
+
+
+///Route
+class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Settings'),
+        backgroundColor: Colors.amberAccent,
+        foregroundColor: Colors.pink,
+        centerTitle: true,
+      ),
+      body:
+      Center(
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Settings',style: TextStyle(color:  Colors.amberAccent,fontSize: 25,fontWeight: FontWeight.bold),),
+
+              ElevatedButton(onPressed: ()
+              {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder:(context)=>HomeScreen()),
+                      (route) => false,
+                );
+              },
+
+                  child: Text('Home'),
+              )
+
+            ]
+        ),
+      ),
+
+
+    );
+  }
+}
+
+///Route
+class CartsScreen extends StatelessWidget {
+  const CartsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Orders'),
+        backgroundColor: Colors.amberAccent,
+        foregroundColor: Colors.pink,
+        centerTitle: true,
+      ),
+      body:
+      Center(
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Orders',style: TextStyle(color:  Colors.amberAccent,fontSize: 25,fontWeight: FontWeight.bold),),
+              TextButton(style: TextButton.styleFrom(
+                backgroundColor: Colors.green,
+                foregroundColor: Colors.redAccent,
+              ),
+                onPressed:(){
+
+                // Navigator.pop(context);
+                Navigator.pushReplacement(context,
+                  MaterialPageRoute(
+                    builder: (context)=> SettingsScreen(),
+                  ),
+                );
+              },
+                  child:
+              Text('Go to settings'),
+              ),
+
+              TextButton(onPressed:(){
+                Navigator.pop(context);
+              },
+                  child:
+              Text('Back to Home'),
+              )
+
+
+            ]
+        ),
+      ),
+
+
     );
   }
 }
