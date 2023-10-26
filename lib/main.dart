@@ -152,7 +152,6 @@ class PhotoGalleryScreen extends StatelessWidget {
 
               ),
               const ListTile(
-
                 leading: CircleAvatar(
                   backgroundImage: NetworkImage('https://i0.wp.com/futballnews.com/wp-content/uploads/2022/06/20220624_141132.jpg?resize=750%2C938&ssl=1'),
                 ),
