@@ -9,72 +9,84 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: true,
-      home: CounterScreen(),
+      home: HomeScreen(),
+      theme: ThemeData(
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.yellowAccent,
+            backgroundColor: Colors.pinkAccent,
+          ),
+        ),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.pinkAccent,
+          centerTitle: true,
+          titleTextStyle: TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+            fontStyle: FontStyle.italic,
+            color: Colors.yellowAccent,
+          ),
+
+        ),
+      ),
       title: 'Adityas App',
     );
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int counter=0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Home'),
-        backgroundColor: Colors.pinkAccent,
-        centerTitle: true,
-        titleTextStyle: TextStyle(
-          fontSize: 25,
-          fontWeight: FontWeight.bold,
-          fontStyle: FontStyle.italic,
-          color: Colors.yellowAccent,
-        ),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [],
+          children: [
+            Text(counter.toString(),style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.blue),),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(onPressed: (){
+                    counter=counter+1;
+                    setState(() {});
+                  },
+                      child: Icon(Icons.add)
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(onPressed: (){
+                    counter=counter-1;
+                    setState(() {});
+                  },
+                      child: Icon(Icons.remove),
+                  ),
+                ),
+
+              ],
+            ),
+          ],
         ),
       ),
     );
   }
 }
 
-class CounterScreen extends StatefulWidget {
-  const CounterScreen({super.key});
 
-  @override
-  State<CounterScreen> createState() => _CounterScreenState();
-}
 
-class _CounterScreenState extends State<CounterScreen> {
-  int counter = 0;
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Counter'),
-      ),
-      body: Center(
-        child: Text(
-          counter.toString(),
-          style: TextStyle(
-            fontSize: 40,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          counter = counter + 1;
-          print(counter);
-          setState(() {});
-        },
-        child: Icon(Icons.add),
-      ),
-    );
-  }
-}
+
