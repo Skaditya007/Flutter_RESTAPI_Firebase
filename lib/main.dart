@@ -26,7 +26,6 @@ class MyApp extends StatelessWidget {
             fontStyle: FontStyle.italic,
             color: Colors.yellowAccent,
           ),
-
         ),
       ),
       title: 'Adityas App',
@@ -42,7 +41,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int counter=0;
+  int counter = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -54,29 +53,55 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(counter.toString(),style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.blue),),
+            Text(
+              counter.toString(),
+              style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(onPressed: (){
-                    counter=counter+1;
-                    setState(() {});
-                  },
-                      child: Icon(Icons.add)
+                  child: ElevatedButton(
+                    onPressed: () {
+                      counter = counter + 1;
+
+                      if (counter >= 5) {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                // title: Text('Button pressed $counter times'),
+                                content: Text('Button pressed $counter times'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('Close'),
+                                  ),
+                                ],
+                              );
+                            });
+                      }
+                      setState(() {});
+                    },
+                    child: Icon(Icons.add),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(onPressed: (){
-                    counter=counter-1;
-                    setState(() {});
-                  },
-                      child: Icon(Icons.remove),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      counter = counter - 1;
+                      setState(() {});
+                    },
+                    child: Icon(Icons.remove),
                   ),
                 ),
-
               ],
             ),
           ],
@@ -85,8 +110,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-
-
-
-
