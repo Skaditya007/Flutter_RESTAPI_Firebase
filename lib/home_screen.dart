@@ -1,67 +1,120 @@
 import 'package:flutter/material.dart';
 
-///MediaQuery
-
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Size size = MediaQuery.of(context).size;
-    // Size size = MediaQuery.sizeOf(context);
-    // print(size);
-    // print(size.width);
-    // print(size.height);
-    // print(size.flipped);
-    // print(size.aspectRatio);
-    // Orientation orientation = MediaQuery.orientationOf(context);
-    // print(orientation);
-    // List<DisplayFeature> displayFeature = MediaQuery.displayFeaturesOf(context);
-    // print(displayFeature);
-    // print(MediaQuery.devicePixelRatioOf(context));
-    print(MediaQuery.platformBrightnessOf(context));
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
-      ),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          print(constraints.maxWidth);
+        appBar: AppBar(
+          title: Text('Home'),
+        ),
+        body: Column(
+          children: [
+            // AspectRatio(
+            //   ///Ratio- Width:Height
+            //   ///Default Ratio - 16/16
+            //   ///100:100
+            //   aspectRatio: 16 / 16,
+            //   child: Container(
+            //     color: Colors.yellowAccent,
+            //     child: Image.network(
+            //       "https://pbs.twimg.com/media/F9t-WwbaIAA11r3.jpg",
+            //       fit: BoxFit.cover,
+            //     ),
+            //   ),
+            // ),
 
-          if(constraints.maxWidth > 500)
-            {
-              return Center(child: Text("Too big screen"));
-            }
-          else {
-            return Center(
-              child: OrientationBuilder(
-                  builder: (context, orientation) {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(orientation == Orientation.portrait
-                            ? 'Portrait'
-                            : "Landscape"),
+            // Container(
+            //   width: MediaQuery.sizeOf(context).width,
+            //   height: MediaQuery.sizeOf(context).width/2,
+            //   color: Colors.yellowAccent,
+            //   child: FractionallySizedBox(
+            //     widthFactor:0.5,//has to be 0 to 1
+            //     heightFactor:0.6,//has to be 0 to 1
+            //     child: Container(
+            //       color: Colors.redAccent,
+            //     ),
+            //   ),
+            // ),
+            // Flexible(
+            //   fit: FlexFit.tight,
+            //   flex: 1,
+            //   child: Container(
+            //     color: Colors.yellowAccent,
+            //     width:  MediaQuery.sizeOf(context).width,
+            //   ),
+            // ),
+            //
+            // Flexible(
+            //   fit: FlexFit.tight,
+            //   flex: 2,
+            //   child: Container(
+            //     color: Colors.greenAccent,
+            //     width:  MediaQuery.sizeOf(context).width,
+            //   ),
+            // ),
+            //
+            // Flexible(
+            //   fit: FlexFit.tight,
+            //   flex: 3,
+            //   child: Container(
+            //     color: Colors.blueAccent,
+            //     width:  MediaQuery.sizeOf(context).width,
+            //   ),
+            // ),
+            //
+            // Flexible(
+            //   child: Row(
+            //     children: [
+            //       Flexible(
+            //         fit: FlexFit.tight,
+            //         flex: 2,
+            //         child: Container(
+            //           color: Colors.greenAccent,
+            //           width:  MediaQuery.sizeOf(context).width,
+            //         ),
+            //       ),
+            //
+            //       Flexible(
+            //         fit: FlexFit.tight,
+            //         flex: 1,
+            //         child: Container(
+            //           color: Colors.redAccent,
+            //           width:  MediaQuery.sizeOf(context).width,
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
 
-                        Wrap(
-                          children: [
-                            Text('DHJDhJSHFJHFJSHFJHFJHHVJHjhJHJHJHFJHJFHFgjfgjfidjgifdjgjdfkgj'),
-                            Text('DHJDhJSHFJHFJSHFJHFJHHVJHjhJHJHJHFJHJFHFgjfgjfidjgifdjgjdfkgj'),
-                            Text('DHJDhJSHFJHFJSHFJHFJHHVJHjhJHJHJHFJHJFHFgjfgjfidjgifdjgjdfkgj'),
-                            Text('DHJDhJSHFJHFJSHFJHFJHHVJHjhJHJHJHFJHJFHF'),
-                            Text('DHJDhJSHFJHFJSHFJHFJHHVJHjhJHJHJHFJHJFHF'),
-                            Text('DHJDhJSHFJHFJSHFJHFJHHVJHjhJHJHJHFJHJFHF'),
-                          ],
-                        ),
-                      ],
-                    );
-                  }
+            Container(
+              color: Colors.grey,
+              height: 100,
+            ),
+
+            Expanded(
+              flex: 3,
+              child: Container(
+                color: Colors.greenAccent,
               ),
+            ),
 
-            );
-          }
-        }
-      ),
-    );
+            Expanded(
+              flex: 2,
+              child: Container(
+                color: Colors.redAccent,
+                width: double.infinity,
+                alignment: Alignment.center,
+                child: SizedBox(
+                  width: 100,
+                  height: 20,
+                  child:
+                      FittedBox(child: Text('ADJDHJHFLFJ ffhdj  hgghsn sjh')),
+                ),
+              ),
+            ),
+          ],
+        ));
   }
 }
