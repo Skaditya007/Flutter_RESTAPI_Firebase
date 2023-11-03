@@ -1,120 +1,186 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+class WeatherData {
+  final String city, condition;
+  final double temperature, windSpeed;
+  final int humidity;
+
+  WeatherData({
+    required this.city,
+    required this.condition,
+    required this.temperature,
+    required this.windSpeed,
+    required this.humidity,
+  });
+
+  factory WeatherData.fromJson(Map<String, dynamic> json) {
+    return WeatherData(
+      city: json['city'],
+      temperature: json['temperature'].toDouble(),
+      condition: json['condition'],
+      humidity: json['humidity'],
+      windSpeed: json['windSpeed'].toDouble(),
+    );
+  }
+}
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  List<WeatherData> weatherDataList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    String jsonString = '''
+      [
+
+  {
+
+    "city": "New York",
+
+    "temperature": 20,
+
+    "condition": "Clear",
+
+    "humidity": 60,
+
+    "windSpeed": 5.5
+
+  },
+
+  {
+
+    "city": "Los Angeles",
+
+    "temperature": 25,
+
+    "condition": "Sunny",
+
+    "humidity": 50,
+
+    "windSpeed": 6.8
+
+  },
+
+  {
+
+    "city": "London",
+
+    "temperature": 15,
+
+    "condition": "Partly Cloudy",
+
+    "humidity": 70,
+
+    "windSpeed": 4.2
+
+  },
+
+  {
+
+    "city": "Tokyo",
+
+    "temperature": 28,
+
+    "condition": "Rainy",
+
+    "humidity": 75,
+
+    "windSpeed": 8.0
+
+  },
+
+  {
+
+    "city": "Sydney",
+
+    "temperature": 22,
+
+    "condition": "Cloudy",
+
+    "humidity": 55,
+
+    "windSpeed": 7.3
+
+  }
+
+]
+    ''';
+
+    List<dynamic> jsonList = json.decode(jsonString);
+    for (Map<String, dynamic> jsonData in jsonList) {
+      WeatherData weatherData = WeatherData.fromJson(jsonData);
+      weatherDataList.add(weatherData);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Home'),
-        ),
-        body: Column(
-          children: [
-            // AspectRatio(
-            //   ///Ratio- Width:Height
-            //   ///Default Ratio - 16/16
-            //   ///100:100
-            //   aspectRatio: 16 / 16,
-            //   child: Container(
-            //     color: Colors.yellowAccent,
-            //     child: Image.network(
-            //       "https://pbs.twimg.com/media/F9t-WwbaIAA11r3.jpg",
-            //       fit: BoxFit.cover,
-            //     ),
-            //   ),
-            // ),
-
-            // Container(
-            //   width: MediaQuery.sizeOf(context).width,
-            //   height: MediaQuery.sizeOf(context).width/2,
-            //   color: Colors.yellowAccent,
-            //   child: FractionallySizedBox(
-            //     widthFactor:0.5,//has to be 0 to 1
-            //     heightFactor:0.6,//has to be 0 to 1
-            //     child: Container(
-            //       color: Colors.redAccent,
-            //     ),
-            //   ),
-            // ),
-            // Flexible(
-            //   fit: FlexFit.tight,
-            //   flex: 1,
-            //   child: Container(
-            //     color: Colors.yellowAccent,
-            //     width:  MediaQuery.sizeOf(context).width,
-            //   ),
-            // ),
-            //
-            // Flexible(
-            //   fit: FlexFit.tight,
-            //   flex: 2,
-            //   child: Container(
-            //     color: Colors.greenAccent,
-            //     width:  MediaQuery.sizeOf(context).width,
-            //   ),
-            // ),
-            //
-            // Flexible(
-            //   fit: FlexFit.tight,
-            //   flex: 3,
-            //   child: Container(
-            //     color: Colors.blueAccent,
-            //     width:  MediaQuery.sizeOf(context).width,
-            //   ),
-            // ),
-            //
-            // Flexible(
-            //   child: Row(
-            //     children: [
-            //       Flexible(
-            //         fit: FlexFit.tight,
-            //         flex: 2,
-            //         child: Container(
-            //           color: Colors.greenAccent,
-            //           width:  MediaQuery.sizeOf(context).width,
-            //         ),
-            //       ),
-            //
-            //       Flexible(
-            //         fit: FlexFit.tight,
-            //         flex: 1,
-            //         child: Container(
-            //           color: Colors.redAccent,
-            //           width:  MediaQuery.sizeOf(context).width,
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
-
-            Container(
-              color: Colors.grey,
-              height: 100,
-            ),
-
-            Expanded(
-              flex: 3,
-              child: Container(
-                color: Colors.greenAccent,
-              ),
-            ),
-
-            Expanded(
-              flex: 2,
-              child: Container(
-                color: Colors.redAccent,
-                width: double.infinity,
-                alignment: Alignment.center,
-                child: SizedBox(
-                  width: 100,
-                  height: 20,
-                  child:
-                      FittedBox(child: Text('ADJDHJHFLFJ ffhdj  hgghsn sjh')),
+      appBar: AppBar(
+        title: const Text('Weather App Info'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView.builder(
+          itemCount: weatherDataList.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(right: 8, left: 8),
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'City: ${weatherDataList[index].city}',
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w500),
+                      ),
+                      Text(
+                        'Temperature: ${weatherDataList[index].temperature}',
+                        style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.grey),
+                      ),
+                      Text(
+                        'Condition: ${weatherDataList[index].condition}',
+                        style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.grey),
+                      ),
+                      Text(
+                        'Humidity: ${weatherDataList[index].humidity}',
+                        style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.grey),
+                      ),
+                      Text(
+                        'Wind Speed: ${weatherDataList[index].windSpeed}',
+                        style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.grey),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
-        ));
+            );
+          },
+        ),
+      ),
+    );
   }
 }
