@@ -110,6 +110,8 @@ class PhotoDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Photo Details')),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image.network(photo.url),
           Padding(
