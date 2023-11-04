@@ -116,16 +116,15 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           } else
             return GridView.builder(
-                 itemCount:10,
-                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-                 itemBuilder: (BuildContext context, int index) {
-          return Column(children: [
-           Image.network('https://www.indianpolitics.co.in/wp-content/uploads/2018/08/lionel-messi-150x150-1.jpg'),
-          ]
-          );
-
-          }
-          );
+                itemCount: 10,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2),
+                itemBuilder: (BuildContext context, int index) {
+                  return Column(children: [
+                    Image.network(
+                        'https://www.indianpolitics.co.in/wp-content/uploads/2018/08/lionel-messi-150x150-1.jpg'),
+                  ]);
+                });
         },
       ),
     );
