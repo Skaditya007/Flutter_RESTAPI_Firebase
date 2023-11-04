@@ -1,5 +1,6 @@
 import 'package:atidya_flutter/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,28 +10,32 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: true,
-      home: HomeScreen(),
-      theme: ThemeData(
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.yellowAccent,
-            backgroundColor: Colors.pinkAccent,
+    return ResponsiveApp(
+      builder: (context) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: true,
+          home: HomeScreen(),
+          theme: ThemeData(
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.yellowAccent,
+                backgroundColor: Colors.pinkAccent,
+              ),
+            ),
+            appBarTheme: AppBarTheme(
+              backgroundColor: Colors.pinkAccent,
+              centerTitle: true,
+              titleTextStyle: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                fontStyle: FontStyle.italic,
+                color: Colors.yellowAccent,
+              ),
+            ),
           ),
-        ),
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.pinkAccent,
-          centerTitle: true,
-          titleTextStyle: TextStyle(
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
-            fontStyle: FontStyle.italic,
-            color: Colors.yellowAccent,
-          ),
-        ),
-      ),
-      title: 'Adityas App',
+          title: 'Adityas App',
+        );
+      }
     );
   }
 }
