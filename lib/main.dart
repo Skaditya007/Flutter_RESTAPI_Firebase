@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:atidya_flutter/home_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
             fontSize: 25,
             fontWeight: FontWeight.bold,
             fontStyle: FontStyle.italic,
-            color: Colors.yellowAccent,
+            color: Colors.orangeAccent,
           ),
         ),
       ),
@@ -43,90 +44,18 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  Scaffold(
       appBar: AppBar(
-        title: Text('News Feed'),
+        title: Text('GOAT Profile'),
       ),
-      body: OrientationBuilder(
-        builder: (context, orientation) {
-          if (orientation == Orientation.portrait) {
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  Center(
-                    child: Wrap(
-                      alignment: WrapAlignment.spaceBetween,
-                      spacing: 200,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: Image.network(
-                              "https://www.indianpolitics.co.in/wp-content/uploads/2018/08/lionel-messi-150x150-1.jpg"),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: Image.network(
-                              "https://www.indianpolitics.co.in/wp-content/uploads/2018/08/lionel-messi-150x150-1.jpg"),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: Image.network(
-                              "https://www.indianpolitics.co.in/wp-content/uploads/2018/08/lionel-messi-150x150-1.jpg"),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: Image.network(
-                              "https://www.indianpolitics.co.in/wp-content/uploads/2018/08/lionel-messi-150x150-1.jpg"),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: Image.network(
-                              "https://www.indianpolitics.co.in/wp-content/uploads/2018/08/lionel-messi-150x150-1.jpg"),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: Image.network(
-                              "https://www.indianpolitics.co.in/wp-content/uploads/2018/08/lionel-messi-150x150-1.jpg"),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: Image.network(
-                              "https://www.indianpolitics.co.in/wp-content/uploads/2018/08/lionel-messi-150x150-1.jpg"),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: Image.network(
-                              "https://www.indianpolitics.co.in/wp-content/uploads/2018/08/lionel-messi-150x150-1.jpg"),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: Image.network(
-                              "https://www.indianpolitics.co.in/wp-content/uploads/2018/08/lionel-messi-150x150-1.jpg"),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: Image.network(
-                              "https://www.indianpolitics.co.in/wp-content/uploads/2018/08/lionel-messi-150x150-1.jpg"),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            );
-          } else
-            return GridView.builder(
-                itemCount: 10,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2),
-                itemBuilder: (BuildContext context, int index) {
-                  return Column(children: [
-                    Image.network(
-                        'https://www.indianpolitics.co.in/wp-content/uploads/2018/08/lionel-messi-150x150-1.jpg'),
-                  ]);
-                });
-        },
-      ),
+      body:
+        OrientationBuilder(
+          builder:(context,orientation){
+            return orientation == Orientation.portrait
+                ? const PortraitScreen()
+                : const LandscapeScreen();
+          },
+        ),
     );
   }
 }
