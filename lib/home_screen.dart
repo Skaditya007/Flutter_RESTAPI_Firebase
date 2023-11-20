@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -8,173 +9,95 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final TextEditingController _fieldOneTEController = TextEditingController();
-  final TextEditingController _fieldTwoTEController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  double result = 0;
+  final TextEditingController _amountOfGlassTEController =
+      TextEditingController(text: '1');
+  List<WaterTrack> waterConsumeList = [];
+  int totalAmount = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Sum Calculator'),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Form(
-            key: _formKey,
+      appBar: AppBar(
+        title: const Text('Water tracker'),
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextFormField(
-                  controller: _fieldOneTEController,
-                  keyboardType: TextInputType.number,
-                  textInputAction: TextInputAction.next,
-                  decoration: const InputDecoration(
-                    hintText: 'Field 1',
-                  ),
-                  validator: (String? value) {
-                    if (value?.isEmpty ?? true) {
-                      return 'Enter valid value';
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  controller: _fieldTwoTEController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    hintText: 'Field 2',
-                  ),
-                  validator: (String? value) {
-                    if (value?.isEmpty ?? true) {
-                      return 'Enter valid value';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                ButtonBar(
-                  alignment: MainAxisAlignment.center,
+                Text('Total consume',
+                    style: Theme.of(context).textTheme.titleLarge),
+                Text('$totalAmount',
+                    style: Theme.of(context).textTheme.headlineLarge),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          double firstNumber =
-                              parseToDouble(_fieldOneTEController.text.trim());
-                          double secondNumber =
-                              parseToDouble(_fieldTwoTEController.text.trim());
-                          print(firstNumber);
-                          print(secondNumber);
-                          result = addition(firstNumber, secondNumber);
+                    SizedBox(
+                        width: 50,
+                        child: TextField(
+                          controller: _amountOfGlassTEController,
+                          textAlign: TextAlign.center,
+                          keyboardType: TextInputType.number,
+                        )),
+                    ElevatedButton(
+                        onPressed: () {
+                          int amount = int.tryParse(
+                                  _amountOfGlassTEController.text.trim()) ??
+                              1;
+                          totalAmount += amount;
+                          WaterTrack waterTrack =
+                              WaterTrack(DateTime.now(), amount);
+                          waterConsumeList.add(waterTrack);
                           setState(() {});
-                        }
-                      },
-                      icon: const Icon(Icons.add),
-                      label: const Text('Add'),
-                    ),
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          double firstNumber =
-                              parseToDouble(_fieldOneTEController.text.trim());
-                          double secondNumber =
-                              parseToDouble(_fieldTwoTEController.text.trim());
-                          print(firstNumber);
-                          print(secondNumber);
-                          result = sub(firstNumber, secondNumber);
-                          setState(() {});
-                        }
-                      },
-                      icon: const Icon(Icons.remove),
-                      label: const Text('Sub'),
-                    ),
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          double firstNumber =
-                              parseToDouble(_fieldOneTEController.text.trim());
-                          double secondNumber =
-                              parseToDouble(_fieldTwoTEController.text.trim());
-                          print(firstNumber);
-                          print(secondNumber);
-                          result = multi(firstNumber, secondNumber);
-                          setState(() {});
-                        }
-                      },
-                      icon: const Icon(Icons.dangerous),
-                      label: const Text('Multiply'),
-                    ),
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          double firstNumber =
-                              parseToDouble(_fieldOneTEController.text.trim());
-                          double secondNumber =
-                              parseToDouble(_fieldTwoTEController.text.trim());
-                          print(firstNumber);
-                          print(secondNumber);
-                          result = divide(firstNumber, secondNumber);
-                          setState(() {});
-                        }
-                      },
-                      icon: const Icon(Icons.density_large),
-                      label: const Text('Divide'),
-                    ),
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          double firstNumber =
-                              parseToDouble(_fieldOneTEController.text.trim());
-                          double secondNumber =
-                              parseToDouble(_fieldTwoTEController.text.trim());
-                          print(firstNumber);
-                          print(secondNumber);
-                          result = mod(firstNumber, secondNumber);
-                          setState(() {});
-                        }
-                      },
-                      icon: const Icon(Icons.percent_outlined),
-                      label: const Text('Mod'),
-                    ),
+                        },
+                        child: const Text('Add')),
                   ],
-                ),
-                Text(
-                  'Result is $result',
-                  style: const TextStyle(
-                    fontSize: 18,
-                  ),
                 ),
               ],
             ),
           ),
-        ));
+          Expanded(
+            child: ListView.builder(
+                itemCount: waterConsumeList.length,
+                // reverse: true,
+                itemBuilder: (context, index) {
+                  return Card(
+                    elevation: 4,
+                    child: ListTile(
+                      onLongPress: (){
+                        print('On Long Press');
+                      },
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.pinkAccent,
+                        foregroundColor: Colors.orangeAccent,
+                        child: Text(
+                          '${index + 1}',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      title: Text(
+                        DateFormat('HH:mm:ss a dd-mm-yyyy')
+                            .format(waterConsumeList[index].time),
+                      ),
+                      trailing: Text(
+                        '${waterConsumeList[index].noOfGlass}',
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                    ),
+                  );
+                }),
+          ),
+        ],
+      ),
+    );
   }
+}
 
-  double parseToDouble(String text) {
-    return double.tryParse(text) ?? 0;
-  }
+class WaterTrack {
+  final DateTime time;
+  final int noOfGlass;
 
-  double addition(double firstNum, double secondNum) {
-    return firstNum + secondNum;
-  }
-
-
-  double sub(double firstNum, double secondNum) {
-    return firstNum - secondNum;
-  }
-
-  double multi(double firstNum, double secondNum) {
-    return firstNum * secondNum;
-  }
-
-  double divide(double firstNum, double secondNum) {
-    return firstNum / secondNum;
-  }
-
-  double mod(double firstNum, double secondNum) {
-    return firstNum % secondNum;
-  }
+  WaterTrack(this.time, this.noOfGlass);
 }

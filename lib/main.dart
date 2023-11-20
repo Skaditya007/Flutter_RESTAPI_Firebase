@@ -5,7 +5,6 @@ void main() {
   runApp(MyApp());
 }
 
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -19,7 +18,7 @@ class MyApp extends StatelessWidget {
             backgroundColor: Colors.pinkAccent,
           ),
         ),
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           backgroundColor: Colors.pinkAccent,
           centerTitle: true,
           titleTextStyle: TextStyle(
