@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: true,
-      home: HomeScreen(),
+      home: const HomeScreen(),
       theme: ThemeData(
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
@@ -34,28 +34,3 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: AppBar(
-        title: Text('GOAT Profile'),
-      ),
-      body:
-        OrientationBuilder(
-          builder:(context,orientation){
-            return orientation == Orientation.portrait
-                ? const PortraitScreen()
-                : const LandscapeScreen();
-          },
-        ),
-    );
-  }
-}
